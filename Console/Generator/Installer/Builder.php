@@ -133,6 +133,11 @@ class Builder
      */
     protected function refreshComposerInstall()
     {
+        $this->runProcess(['composer', 'config', '--no-plugins', 'allow-plugins.joshbrw/laravel-module-installer', 'true']);
+
+        $this->line("   <comment>Updating modules...</comment>");
+        $this->runProcess(['php', 'artisan', 'module:update']);
+
         $this->line("   <comment>Removing vendor folder...</comment>");
         $this->runProcess(['rm', '-rf', 'vendor']);
 
@@ -146,7 +151,7 @@ class Builder
         $this->runProcess(['rm', '-rf', 'composer.lock']);
         
         $this->line("   <comment>Installing composer...</comment>");
-        $this->runProcess(['composer', 'install', '--optimize-autoloader']);
+        $this->runProcess(['composer', 'install']);
     }
 
     /**

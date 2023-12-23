@@ -116,9 +116,14 @@ class ZipCommand
                 // Trim the line to remove extra spaces or characters
                 $line = trim($line);
 
-                // Check for empty lines or composer.lock
-                if (empty($line) || strpos($line, 'composer.lock') !== false) {
-                    continue;
+                // Skip the current iteration if $line is empty or contains specific file names
+                if (
+                    empty($line) ||
+                    strpos($line, 'composer.lock') !== false || 
+                    strpos($line, 'composer.json') !== false || 
+                    strpos($line, 'Modules/modules.json') !== false 
+                ) {
+                    continue; // Skip to the next iteration
                 }
 
                 // Use regex to extract file paths efficiently
