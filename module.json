@@ -1,0 +1,13 @@
+{
+    "name": "MartvillKit",
+    "alias": "martvillkit",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\MartvillKit\\Providers\\MartvillKitServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

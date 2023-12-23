@@ -1,0 +1,23 @@
+{
+    "name": "techvillage/martvillkit",
+    "description": "",
+    "authors": [
+        {
+            "name": "AH Millat",
+            "email": "millat.techvill@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [],
+            "aliases": {
+
+            }
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Modules\\MartvillKit\\": ""
+        }
+    }
+}
