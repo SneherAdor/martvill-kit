@@ -1,6 +1,8 @@
 {
     "name": "MartvillKit",
     "alias": "martvillkit",
+    "version": "1.0.0",
+    "martvill_version": "1.6.0",
     "description": "",
     "keywords": [],
     "priority": 0,
