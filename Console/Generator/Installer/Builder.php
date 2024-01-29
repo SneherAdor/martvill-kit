@@ -57,39 +57,10 @@ class Builder
         $this->step('Refreshing composer install...');
         $this->refreshComposerInstall();
 
-        $this->step('Storing original .env file content...');
-        $this->storeOriginalEnvContent();
-
-        $this->step('Updating .env file...');
-        $this->updateEnvFile();
-
         $this->step('Creating the project zip file...');
         $this->makeProjectZip();
-
-        $this->step('Reverting .env file content...');
-        $this->revertOriginalEnvContent();
         
         $this->line("  <question>Successfully {$this->installerZipFileName}.zip generated</question>");
-    }
-
-    /**
-     * Store the original .env file content.
-     *
-     * @return void
-     */
-    private function storeOriginalEnvContent()
-    {
-        $this->originalEnvContent = file_get_contents(base_path('.env'));
-    }
-
-    /**
-     * Revert the original .env file content.
-     *
-     * @return void
-     */
-    private function revertOriginalEnvContent()
-    {
-        file_put_contents(base_path('.env'), $this->originalEnvContent);
     }
 
     /**
@@ -117,16 +88,6 @@ class Builder
     }
 
     /**
-     * Update the .env file.
-     *
-     * @return void
-     */
-    protected function updateEnvFile()
-    {
-        copy(base_path('.env.example'), base_path('.env'));
-    }
-
-    /**
      * Refresh the composer install.
      *
      * @return void
@@ -151,7 +112,7 @@ class Builder
         $this->runProcess(['rm', '-rf', 'composer.lock']);
         
         $this->line("   <comment>Installing composer...</comment>");
-        $this->runProcess(['composer', 'install']);
+        $this->runProcess(['composer', 'install', '--no-dev']);
     }
 
     /**

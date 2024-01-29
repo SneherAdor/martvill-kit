@@ -27,10 +27,10 @@ class ZipCommand
     {
         $excludedFiles = [
             '.git',
+            '.env',
             'node_modules',
             'public/uploads',
             'public/contents',
-            'storage/logs',
             'design',
             '.idea',
             '.vscode',
@@ -51,6 +51,11 @@ class ZipCommand
 
         // Exclude the extra modules, which are not in the remote repository.
         $excludedFiles = array_merge($excludedFiles, $this->getLocalChangesFiles());
+
+        $excludedFiles = array_merge($excludedFiles, $this->excludeUnTrackModules());
+
+        // Remove empty values from the array
+        $excludedFiles = array_filter($excludedFiles);
 
         $this->line('  <info>Excluded files or directories:</info> ');
 
@@ -141,5 +146,18 @@ class ZipCommand
         return $modifiedFiles;
     }
 
+    private function excludeUnTrackModules(): array
+    {
+        $process = $this->runProcess(['git', 'ls-files', '--ignored', '--exclude-standard', '-o', 'Modules/'], true);
+
+        if ($process->isSuccessful()) {
+            $gitDiffFiles = $process->getOutput();
+            $lines = explode("\n", $gitDiffFiles);
+
+            return $lines;
+        }
+
+        return [];
+    }
 
 }
